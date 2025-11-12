@@ -144,7 +144,13 @@ double parallel_version_clean(const char *text, const char *pattern,
 
     for (size_t i = 0; i < K_threads; i++) {
         size_t start_idx = i * chunk_size;
-        size_t end_idx = (i == K_threads - 1) ? text_len : (i + 1) * chunk_size + pattern_len - 1;
+        size_t end_idx;
+        if (i == K_threads - 1) {
+            end_idx = text_len;  
+        } else {
+            end_idx = (i + 1) * chunk_size + pattern_len - 1; 
+        }
+
         if (end_idx > text_len) end_idx = text_len;
 
         thread_args[i] = (ThreadArgs){
