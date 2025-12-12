@@ -112,7 +112,6 @@ int main() {
 
     sleep(1);
 
-    printf("Enter lines (empty line to finish):\n");
     char line[MAX_LINE_LEN];
     ssize_t len;
 
@@ -166,7 +165,7 @@ int main() {
     waitpid(pid1, NULL, 0);
     waitpid(pid2, NULL, 0);
 
-    printf("Processing complete. Results saved to child1_output.txt and child2_output.txt\n");
+    printf("Results saved to child1_output.txt and child2_output.txt\n");
 
 cleanup:
     if (sem_access != SEM_FAILED) {
@@ -181,6 +180,7 @@ cleanup:
         sem_close(sem_avail2);
         sem_unlink(sem_avail2_name);
     }
+    
     munmap(shm_buf, SHM_SIZE);
     shm_unlink(shm_name);
     close(shm_fd);
